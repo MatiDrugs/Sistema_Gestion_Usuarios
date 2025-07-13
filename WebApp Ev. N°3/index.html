@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>WebApp con jQuery y DataTables</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-2.3.2/datatables.min.css" />
+  <link rel="stylesheet" href="css/estilos.css" />
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="usuarios.html">Crear Usuario</a>
+    <a href="otro_formulario.html">Otro Formulario</a>
+  </nav>
+
+  <h1>Datos desde JSONPlaceholder</h1>
+
+  <select id="tipoDato">
+    <option value="users">Usuarios</option>
+    <option value="posts">Publicaciones</option>
+    <option value="comments">Comentarios</option>
+  </select>
+
+  <button id="cargarBtn">Cargar Datos</button>
+
+  <table id="tablaDatos" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/v/dt/dt-2.3.2/datatables.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Usuario</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="usuarios.html">Crear Usuario</a>
+    <a href="otro_formulario.html">Otro Formulario</a>
+  </nav>
+
+  <h2>Crear Usuario</h2>
+
+  <form id="formUsuario">
+    <label>Nombre*:<br>
+      <input type="text" name="nombre" id="nombre">
+      <div class="error-msg" id="error-nombre"></div>
+    </label><br><br>
+
+    <label>Usuario*:<br>
+      <input type="text" name="usuario" id="usuario">
+      <div class="error-msg" id="error-usuario"></div>
+    </label><br><br>
+
+    <label>Fecha Ingreso* (dd/MM/yyyy):<br>
+      <input type="text" name="fecha" id="fecha">
+      <div class="error-msg" id="error-fecha"></div>
+    </label><br><br>
+
+    <label>Email*:<br>
+      <input type="email" name="email" id="email">
+      <div class="error-msg" id="error-email"></div>
+    </label><br><br>
+
+    <label>Género:<br>
+      <input type="text" name="genero" id="genero">
+    </label><br><br>
+
+    <label>Sitio Web:<br>
+      <input type="text" name="web" id="web">
+    </label><br><br>
+
+    <button type="button" id="cancelar">Cancelar</button>
+    <button type="submit">Guardar</button>
+  </form>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+
+      function limpiarErrores() {
+        $('input').removeClass('error');
+        $('.error-msg').text('');
+      }
+
+      function validarFecha(fecha) {
+        return /^\d{2}\/\d{2}\/\d{4}$/.test(fecha);
+      }
+
+      function validarEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      $('#cancelar').click(function () {
+        $('#formUsuario')[0].reset();
+        limpiarErrores();
+      });
+
+      $('#formUsuario').submit(function (e) {
+        e.preventDefault();
+        limpiarErrores();
+
+        let valido = true;
+
+        const nombre = $('#nombre').val().trim();
+        const usuario = $('#usuario').val().trim();
+        const fecha = $('#fecha').val().trim();
+        const email = $('#email').val().trim();
+
+        if (!nombre) {
+          valido = false;
+          $('#nombre').addClass('error');
+          $('#error-nombre').text('El nombre es obligatorio.');
+        }
+
+        if (!usuario) {
+          valido = false;
+          $('#usuario').addClass('error');
+          $('#error-usuario').text('El usuario es obligatorio.');
+        }
+
+        if (!validarFecha(fecha)) {
+          valido = false;
+          $('#fecha').addClass('error');
+          $('#error-fecha').text('Formato de fecha inválido. Ej: 31/12/2025');
+        }
+
+        if (!validarEmail(email)) {
+          valido = false;
+          $('#email').addClass('error');
+          $('#error-email').text('Email inválido. Ej: usuario@dominio.com');
+        }
+
+        if (valido) {
+          alert('✅ Usuario guardado correctamente (simulado)');
+          $('#formUsuario')[0].reset();
+        }
+      });
+
+    });
+  </script>
+</body>
+</html>

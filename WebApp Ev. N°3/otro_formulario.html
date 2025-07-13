@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Comentario</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="usuarios.html">Crear Usuario</a>
+    <a href="otro_formulario.html">Crear Comentario</a>
+  </nav>
+
+  <h2>Crear Comentario</h2>
+
+  <form id="formComentario">
+    <label>ID del Post*:<br>
+      <input type="number" name="postId" id="postId">
+      <div class="error-msg" id="error-postId"></div>
+    </label><br><br>
+
+    <label>Nombre*:<br>
+      <input type="text" name="nombre" id="nombre">
+      <div class="error-msg" id="error-nombre"></div>
+    </label><br><br>
+
+    <label>Email*:<br>
+      <input type="email" name="email" id="email">
+      <div class="error-msg" id="error-email"></div>
+    </label><br><br>
+
+    <label>Comentario (Body)*:<br>
+      <textarea name="body" id="body" rows="4" cols="40"></textarea>
+      <div class="error-msg" id="error-body"></div>
+    </label><br><br>
+
+    <button type="button" id="cancelar">Cancelar</button>
+    <button type="submit">Guardar</button>
+  </form>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+
+      function limpiarErrores() {
+        $('input, textarea').removeClass('error');
+        $('.error-msg').text('');
+      }
+
+      function validarEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+          } 
+
+
+      $('#cancelar').click(function () {
+        $('#formComentario')[0].reset();
+        limpiarErrores();
+      });
+
+      $('#formComentario').submit(function (e) {
+        e.preventDefault();
+        limpiarErrores();
+
+        let valido = true;
+
+        const postId = $('#postId').val().trim();
+        const nombre = $('#nombre').val().trim();
+        const email = $('#email').val().trim();
+        const body = $('#body').val().trim();
+
+        if (!postId || isNaN(postId) || parseInt(postId) < 1) {
+          valido = false;
+          $('#postId').addClass('error');
+          $('#error-postId').text('Debe ingresar un ID válido de post.');
+        }
+
+        if (!nombre) {
+          valido = false;
+          $('#nombre').addClass('error');
+          $('#error-nombre').text('El nombre es obligatorio.');
+        }
+
+        if (!validarEmail(email)) {
+          valido = false;
+          $('#email').addClass('error');
+          $('#error-email').text('Email inválido. Ej: usuario@dominio.com');
+        }
+
+        if (!body) {
+          valido = false;
+          $('#body').addClass('error');
+          $('#error-body').text('Debe ingresar un comentario.');
+        }
+
+        if (valido) {
+          alert('✅ Comentario guardado correctamente (simulado)');
+          $('#formComentario')[0].reset();
+        }
+      });
+
+    });
+  </script>
+</body>
+</html>
